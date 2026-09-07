@@ -21,6 +21,8 @@ import { Route as AuthenticatedMemberProgressRouteImport } from './routes/_authe
 import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedWorkspaceRouteImport } from './routes/_authenticated/workspace'
+import { Route as AuthenticatedFundRequestsIndexRouteImport } from './routes/_authenticated/fund-requests.index'
+import { Route as AuthenticatedFundRequestsIdRouteImport } from './routes/_authenticated/fund-requests.$id'
 import { Route as AuthenticatedSettingsOrganizationRouteImport } from './routes/_authenticated/settings.organization'
 
 const IndexRoute = IndexRouteImport.update({
@@ -85,6 +87,18 @@ const AuthenticatedWorkspaceRoute = AuthenticatedWorkspaceRouteImport.update({
   path: '/workspace',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFundRequestsIndexRoute =
+  AuthenticatedFundRequestsIndexRouteImport.update({
+    id: '/fund-requests/',
+    path: '/fund-requests/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedFundRequestsIdRoute =
+  AuthenticatedFundRequestsIdRouteImport.update({
+    id: '/fund-requests/$id',
+    path: '/fund-requests/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSettingsOrganizationRoute =
   AuthenticatedSettingsOrganizationRouteImport.update({
     id: '/settings/organization',
@@ -104,7 +118,9 @@ export interface FileRoutesByFullPath {
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/workspace': typeof AuthenticatedWorkspaceRoute
+  '/fund-requests/$id': typeof AuthenticatedFundRequestsIdRoute
   '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
+  '/fund-requests/': typeof AuthenticatedFundRequestsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,7 +134,9 @@ export interface FileRoutesByTo {
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/workspace': typeof AuthenticatedWorkspaceRoute
+  '/fund-requests/$id': typeof AuthenticatedFundRequestsIdRoute
   '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
+  '/fund-requests': typeof AuthenticatedFundRequestsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,7 +152,9 @@ export interface FileRoutesById {
   '/_authenticated/members': typeof AuthenticatedMembersRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/workspace': typeof AuthenticatedWorkspaceRoute
+  '/_authenticated/fund-requests/$id': typeof AuthenticatedFundRequestsIdRoute
   '/_authenticated/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
+  '/_authenticated/fund-requests/': typeof AuthenticatedFundRequestsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,7 +170,9 @@ export interface FileRouteTypes {
     | '/members'
     | '/profile'
     | '/workspace'
+    | '/fund-requests/$id'
     | '/settings/organization'
+    | '/fund-requests/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -164,7 +186,9 @@ export interface FileRouteTypes {
     | '/members'
     | '/profile'
     | '/workspace'
+    | '/fund-requests/$id'
     | '/settings/organization'
+    | '/fund-requests'
   id:
     | '__root__'
     | '/'
@@ -179,7 +203,9 @@ export interface FileRouteTypes {
     | '/_authenticated/members'
     | '/_authenticated/profile'
     | '/_authenticated/workspace'
+    | '/_authenticated/fund-requests/$id'
     | '/_authenticated/settings/organization'
+    | '/_authenticated/fund-requests/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -275,6 +301,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWorkspaceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/fund-requests/': {
+      id: '/_authenticated/fund-requests/'
+      path: '/fund-requests'
+      fullPath: '/fund-requests/'
+      preLoaderRoute: typeof AuthenticatedFundRequestsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/fund-requests/$id': {
+      id: '/_authenticated/fund-requests/$id'
+      path: '/fund-requests/$id'
+      fullPath: '/fund-requests/$id'
+      preLoaderRoute: typeof AuthenticatedFundRequestsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/settings/organization': {
       id: '/_authenticated/settings/organization'
       path: '/settings/organization'
@@ -294,7 +334,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMembersRoute: typeof AuthenticatedMembersRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedWorkspaceRoute: typeof AuthenticatedWorkspaceRoute
+  AuthenticatedFundRequestsIdRoute: typeof AuthenticatedFundRequestsIdRoute
   AuthenticatedSettingsOrganizationRoute: typeof AuthenticatedSettingsOrganizationRoute
+  AuthenticatedFundRequestsIndexRoute: typeof AuthenticatedFundRequestsIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -306,8 +348,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMembersRoute: AuthenticatedMembersRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedWorkspaceRoute: AuthenticatedWorkspaceRoute,
+  AuthenticatedFundRequestsIdRoute: AuthenticatedFundRequestsIdRoute,
   AuthenticatedSettingsOrganizationRoute:
     AuthenticatedSettingsOrganizationRoute,
+  AuthenticatedFundRequestsIndexRoute: AuthenticatedFundRequestsIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
