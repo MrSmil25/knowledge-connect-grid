@@ -81,7 +81,7 @@ function FundRequestDetail() {
 
   const kind = req.request_kind ?? "Pengajuan";
   const isReimbursement = kind === "Reimbursement";
-  const meta = kindMeta(r.request_kind);
+  const meta = kindMeta(req.request_kind);
   const steps = isReimbursement ? REIMBURSEMENT_STEPS : PENGAJUAN_STEPS;
   const currentOrder = STEP_ORDER[req.status] ?? 0;
   const outstandingDays =
