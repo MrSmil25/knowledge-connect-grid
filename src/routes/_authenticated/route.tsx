@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect, Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, User, Users, Boxes, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Radar, User, Users, Boxes, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMyProfile } from "@/hooks/useProfile";
@@ -17,11 +17,20 @@ export const Route = createFileRoute("/_authenticated")({
   component: AppLayout,
 });
 
-const navItems = [
-  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/profile", label: "Profil Saya", icon: User },
-  { to: "/members", label: "Anggota", icon: Users },
-  { to: "/divisions", label: "Divisi", icon: Boxes },
+const navSections = [
+  {
+    label: "STRATEGI",
+    items: [{ to: "/command-center", label: "Command Center", icon: Radar }] as const,
+  },
+  {
+    label: "ORGANISASI",
+    items: [
+      { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { to: "/profile", label: "Profil Saya", icon: User },
+      { to: "/members", label: "Anggota", icon: Users },
+      { to: "/divisions", label: "Divisi", icon: Boxes },
+    ] as const,
+  },
 ] as const;
 
 function AppLayout() {
