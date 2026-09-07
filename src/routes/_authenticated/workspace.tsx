@@ -17,6 +17,7 @@ import {
 } from "@/lib/workspace";
 import { KanbanBoard } from "@/components/workspace/KanbanBoard";
 import { TaskFormDialog } from "@/components/workspace/TaskFormDialog";
+import { MyReimbursementNotice } from "@/components/fund-requests/MyReimbursementNotice";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -130,6 +131,7 @@ function WorkspacePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
+      <MyReimbursementNotice />
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Ruang Kerja Saya</h1>
