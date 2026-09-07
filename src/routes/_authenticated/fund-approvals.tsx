@@ -20,7 +20,7 @@ import {
   markDisbursed,
   uploadDocument,
   canApproveFunds,
-  KIND_META,
+  kindMeta,
   STATUS_CLASS,
   STATUS_LABEL,
   type FundRequest,
@@ -80,7 +80,7 @@ function FundApprovalsPage() {
   }
 
   const approve = useMutation({
-    mutationFn: ({ id, notes }: { id: string; notes?: string }) => approveRequest(id, notes),
+    mutationFn: ({ id, notes }: { id: string; notes?: string | undefined }) => approveRequest(id, notes),
     onSuccess: () => {
       toast.success("Disetujui.");
       refresh();
@@ -96,7 +96,7 @@ function FundApprovalsPage() {
     onError: (e: Error) => toast.error("Gagal menolak: " + e.message),
   });
   const disburse = useMutation({
-    mutationFn: ({ id, proof }: { id: string; proof?: string | null }) => markDisbursed(id, proof),
+    mutationFn: ({ id, proof }: { id: string; proof?: string | null | undefined }) => markDisbursed(id, proof),
     onSuccess: () => {
       toast.success("Ditandai sudah diganti.");
       refresh();
@@ -215,7 +215,7 @@ function ReviewCard({
   const [uploading, setUploading] = useState(false);
   const [proofPath, setProofPath] = useState<string | null>(null);
   const isReimbursement = r.request_kind === "Reimbursement";
-  const meta = KIND_META[r.request_kind ?? "Pengajuan"] ?? KIND_META.Pengajuan;
+  const meta = kindMeta(r.request_kind);
 
   async function handleProof(file?: File | null) {
     if (!file) return;

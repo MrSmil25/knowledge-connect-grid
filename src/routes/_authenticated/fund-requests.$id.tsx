@@ -8,7 +8,7 @@ import { formatRupiah, formatDateID, relativeTime, daysBetween } from "@/lib/for
 import { useProfiles } from "@/hooks/useProfile";
 import {
   fetchFundRequest,
-  KIND_META,
+  kindMeta,
   STATUS_CLASS,
   STATUS_LABEL,
   PENGAJUAN_STEPS,
@@ -81,7 +81,7 @@ function FundRequestDetail() {
 
   const kind = req.request_kind ?? "Pengajuan";
   const isReimbursement = kind === "Reimbursement";
-  const meta = KIND_META[kind] ?? KIND_META.Pengajuan;
+  const meta = kindMeta(r.request_kind);
   const steps = isReimbursement ? REIMBURSEMENT_STEPS : PENGAJUAN_STEPS;
   const currentOrder = STEP_ORDER[req.status] ?? 0;
   const outstandingDays =

@@ -48,10 +48,19 @@ export const URGENCY_LABEL: Record<string, string> = {
 export const REQUEST_KINDS = ["Pengajuan", "Reimbursement"] as const;
 export type RequestKind = (typeof REQUEST_KINDS)[number];
 
-export const KIND_META: Record<string, { label: string; badge: string }> = {
+const KIND_META_MAP: Record<string, { label: string; badge: string }> = {
   Pengajuan: { label: "Pengajuan", badge: "bg-sky-100 text-sky-700" },
   Reimbursement: { label: "Reimbursement", badge: "bg-violet-100 text-violet-700" },
 };
+
+export function kindMeta(kind?: string | null): { label: string; badge: string } {
+  return (
+    KIND_META_MAP[kind ?? "Pengajuan"] ?? {
+      label: "Pengajuan",
+      badge: "bg-sky-100 text-sky-700",
+    }
+  );
+}
 
 export type BreakdownItem = { item: string; qty: number; unit_price: number };
 
@@ -156,7 +165,7 @@ export async function resolveDocUrl(path?: string | null): Promise<string | null
 }
 
 export function isPdfPath(path?: string | null) {
-  return !!path && path.toLowerCase().split("?")[0].endsWith(".pdf");
+  return !!path && (path.toLowerCase().split("?")[0] ?? "").endsWith(".pdf");
 }
 
 async function nextRequestNumber(): Promise<string | null> {

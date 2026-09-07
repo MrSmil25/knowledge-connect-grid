@@ -21,7 +21,7 @@ import {
   fetchFundRequests,
   createFundRequest,
   createReimbursement,
-  KIND_META,
+  kindMeta,
   STATUS_CLASS,
   STATUS_LABEL,
   type NewFundRequest,
@@ -158,7 +158,7 @@ function FundRequestsPage() {
             <tbody>
               {rows.map((r) => {
                 const kind = r.request_kind ?? "Pengajuan";
-                const meta = KIND_META[kind] ?? KIND_META.Pengajuan;
+                const meta = kindMeta(r.request_kind);
                 return (
                   <tr key={r.id} className="border-t transition-colors hover:bg-muted/40">
                     <td className="p-3">
