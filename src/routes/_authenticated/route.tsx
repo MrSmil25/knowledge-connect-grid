@@ -66,21 +66,28 @@ function AppLayout() {
             <X className="size-5" />
           </button>
         </div>
-        <nav className="space-y-1 p-3">
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-              activeProps={{
-                className:
-                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium bg-sidebar-accent text-sidebar-accent-foreground",
-              }}
-            >
-              <item.icon className="size-4" />
-              {item.label}
-            </Link>
+        <nav className="space-y-4 p-3">
+          {navSections.map((section) => (
+            <div key={section.label} className="space-y-1">
+              <p className="px-3 pb-1 text-[11px] font-semibold tracking-wider text-sidebar-foreground/50">
+                {section.label}
+              </p>
+              {section.items.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  activeProps={{
+                    className:
+                      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium bg-sidebar-accent text-sidebar-accent-foreground",
+                  }}
+                >
+                  <item.icon className="size-4" />
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           ))}
         </nav>
       </aside>
