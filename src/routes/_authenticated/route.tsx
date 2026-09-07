@@ -1,9 +1,21 @@
 import { createFileRoute, Outlet, redirect, Link, useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, Radar, User, Users, Boxes, LogOut, Menu, X } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  LayoutDashboard,
+  Radar,
+  User,
+  Users,
+  Boxes,
+  LogOut,
+  Menu,
+  X,
+  Megaphone,
+  Settings,
+} from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useMyProfile } from "@/hooks/useProfile";
+import { isBPH, useMyProfile } from "@/hooks/useProfile";
+import { fetchOrgSettings, resolveLogoUrl } from "@/lib/announcements";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 
@@ -18,6 +30,10 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 const navSections = [
+  {
+    label: "KOMUNIKASI",
+    items: [{ to: "/announcements", label: "Pengumuman", icon: Megaphone }] as const,
+  },
   {
     label: "STRATEGI",
     items: [{ to: "/command-center", label: "Command Center", icon: Radar }] as const,
@@ -38,6 +54,13 @@ function AppLayout() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const { data: org } = useQuery({ queryKey: ["org-settings"], queryFn: fetchOrgSettings });
+  const { data: logoUrl } = useQuery({
+    queryKey: ["org-logo", org?.logo_url],
+    queryFn: () => resolveLogoUrl(org?.logo_url),
+    enabled: !!org?.logo_url,
+  });
+  const canManageOrg = isBPH(profile?.role);
 
   async function handleLogout() {
     await queryClient.cancelQueries();
@@ -61,7 +84,15 @@ function AppLayout() {
         }`}
       >
         <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-5">
-          <span className="text-lg font-bold tracking-tight">OrgTool</span>
+          {logoUrl ? (
+            <img
+              src={logoUrl}
+              alt={org?.org_name ?? "Logo organisasi"}
+              className="h-9 max-w-[160px] object-contain"
+            />
+          ) : (
+            <span className="text-lg font-bold tracking-tight">{org?.org_name ?? "OrgTool"}</span>
+          )}
           <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Tutup menu">
             <X className="size-5" />
           </button>
@@ -89,6 +120,26 @@ function AppLayout() {
               ))}
             </div>
           ))}
+
+          {canManageOrg && (
+            <div className="space-y-1 border-t border-sidebar-border pt-3">
+              <p className="px-3 pb-1 text-[11px] font-semibold tracking-wider text-sidebar-foreground/50">
+                SISTEM
+              </p>
+              <Link
+                to="/settings/organization"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                activeProps={{
+                  className:
+                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium bg-sidebar-accent text-sidebar-accent-foreground",
+                }}
+              >
+                <Settings className="size-4" />
+                Pengaturan
+              </Link>
+            </div>
+          )}
         </nav>
       </aside>
 

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Users, Boxes, UserCheck, Building2 } from "lucide-react";
 import { useDivisions, useMyProfile, useProfiles } from "@/hooks/useProfile";
+import { UrgentBanners } from "@/components/announcements/UrgentBanners";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -47,6 +48,8 @@ function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
+      <UrgentBanners />
+
       <section className="rounded-2xl bg-primary p-6 text-primary-foreground shadow-sm sm:p-8">
         <h1 className="text-2xl font-bold sm:text-3xl">
           Halo, {profile?.nickname || profile?.full_name || "Anggota"}!
