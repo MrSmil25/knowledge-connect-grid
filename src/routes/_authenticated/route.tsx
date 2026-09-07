@@ -13,6 +13,8 @@ import {
   Settings,
   BriefcaseBusiness,
   TrendingUp,
+  Wallet,
+  ShieldCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -42,6 +44,10 @@ const navSections = [
   {
     label: "KOMUNIKASI",
     items: [{ to: "/announcements", label: "Pengumuman", icon: Megaphone }] as const,
+  },
+  {
+    label: "KEUANGAN",
+    items: [{ to: "/fund-requests", label: "Pengajuan Dana", icon: Wallet }] as const,
   },
   {
     label: "STRATEGI",
