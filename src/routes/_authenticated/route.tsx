@@ -11,6 +11,8 @@ import {
   X,
   Megaphone,
   Settings,
+  BriefcaseBusiness,
+  TrendingUp,
 } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -31,17 +33,26 @@ export const Route = createFileRoute("/_authenticated")({
 
 const navSections = [
   {
+    label: "UTAMA",
+    items: [
+      { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+      { to: "/workspace", label: "Ruang Kerja Saya", icon: BriefcaseBusiness },
+    ] as const,
+  },
+  {
     label: "KOMUNIKASI",
     items: [{ to: "/announcements", label: "Pengumuman", icon: Megaphone }] as const,
   },
   {
     label: "STRATEGI",
-    items: [{ to: "/command-center", label: "Command Center", icon: Radar }] as const,
+    items: [
+      { to: "/command-center", label: "Command Center", icon: Radar },
+      { to: "/member-progress", label: "Progres Anggota", icon: TrendingUp },
+    ] as const,
   },
   {
     label: "ORGANISASI",
     items: [
-      { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
       { to: "/profile", label: "Profil Saya", icon: User },
       { to: "/members", label: "Anggota", icon: Users },
       { to: "/divisions", label: "Divisi", icon: Boxes },
