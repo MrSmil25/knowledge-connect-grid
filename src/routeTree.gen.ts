@@ -13,11 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AuthenticatedAnnouncementsRouteImport } from './routes/_authenticated/announcements'
 import { Route as AuthenticatedCommandCenterRouteImport } from './routes/_authenticated/command-center'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDivisionsRouteImport } from './routes/_authenticated/divisions'
 import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedSettingsOrganizationRouteImport } from './routes/_authenticated/settings.organization'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -38,6 +40,12 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAnnouncementsRoute =
+  AuthenticatedAnnouncementsRouteImport.update({
+    id: '/announcements',
+    path: '/announcements',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedCommandCenterRoute =
   AuthenticatedCommandCenterRouteImport.update({
     id: '/command-center',
@@ -64,26 +72,36 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSettingsOrganizationRoute =
+  AuthenticatedSettingsOrganizationRouteImport.update({
+    id: '/settings/organization',
+    path: '/settings/organization',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/announcements': typeof AuthenticatedAnnouncementsRoute
   '/command-center': typeof AuthenticatedCommandCenterRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/divisions': typeof AuthenticatedDivisionsRoute
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/announcements': typeof AuthenticatedAnnouncementsRoute
   '/command-center': typeof AuthenticatedCommandCenterRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/divisions': typeof AuthenticatedDivisionsRoute
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -91,11 +109,13 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/_authenticated/announcements': typeof AuthenticatedAnnouncementsRoute
   '/_authenticated/command-center': typeof AuthenticatedCommandCenterRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/divisions': typeof AuthenticatedDivisionsRoute
   '/_authenticated/members': typeof AuthenticatedMembersRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -103,32 +123,38 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/register'
+    | '/announcements'
     | '/command-center'
     | '/dashboard'
     | '/divisions'
     | '/members'
     | '/profile'
+    | '/settings/organization'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
     | '/register'
+    | '/announcements'
     | '/command-center'
     | '/dashboard'
     | '/divisions'
     | '/members'
     | '/profile'
+    | '/settings/organization'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/login'
     | '/register'
+    | '/_authenticated/announcements'
     | '/_authenticated/command-center'
     | '/_authenticated/dashboard'
     | '/_authenticated/divisions'
     | '/_authenticated/members'
     | '/_authenticated/profile'
+    | '/_authenticated/settings/organization'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -168,6 +194,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/announcements': {
+      id: '/_authenticated/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof AuthenticatedAnnouncementsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/command-center': {
       id: '/_authenticated/command-center'
       path: '/command-center'
@@ -203,23 +236,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/settings/organization': {
+      id: '/_authenticated/settings/organization'
+      path: '/settings/organization'
+      fullPath: '/settings/organization'
+      preLoaderRoute: typeof AuthenticatedSettingsOrganizationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnnouncementsRoute: typeof AuthenticatedAnnouncementsRoute
   AuthenticatedCommandCenterRoute: typeof AuthenticatedCommandCenterRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDivisionsRoute: typeof AuthenticatedDivisionsRoute
   AuthenticatedMembersRoute: typeof AuthenticatedMembersRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSettingsOrganizationRoute: typeof AuthenticatedSettingsOrganizationRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnnouncementsRoute: AuthenticatedAnnouncementsRoute,
   AuthenticatedCommandCenterRoute: AuthenticatedCommandCenterRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDivisionsRoute: AuthenticatedDivisionsRoute,
   AuthenticatedMembersRoute: AuthenticatedMembersRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSettingsOrganizationRoute:
+    AuthenticatedSettingsOrganizationRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
