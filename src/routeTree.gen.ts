@@ -19,6 +19,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDivisionsRouteImport } from './routes/_authenticated/divisions'
 import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedWorkspaceRouteImport } from './routes/_authenticated/workspace'
 import { Route as AuthenticatedSettingsOrganizationRouteImport } from './routes/_authenticated/settings.organization'
 
 const IndexRoute = IndexRouteImport.update({
@@ -72,6 +73,11 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWorkspaceRoute = AuthenticatedWorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSettingsOrganizationRoute =
   AuthenticatedSettingsOrganizationRouteImport.update({
     id: '/settings/organization',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/divisions': typeof AuthenticatedDivisionsRoute
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/workspace': typeof AuthenticatedWorkspaceRoute
   '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/divisions': typeof AuthenticatedDivisionsRoute
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/workspace': typeof AuthenticatedWorkspaceRoute
   '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/_authenticated/divisions': typeof AuthenticatedDivisionsRoute
   '/_authenticated/members': typeof AuthenticatedMembersRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/workspace': typeof AuthenticatedWorkspaceRoute
   '/_authenticated/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
 }
 export interface FileRouteTypes {
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/divisions'
     | '/members'
     | '/profile'
+    | '/workspace'
     | '/settings/organization'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/divisions'
     | '/members'
     | '/profile'
+    | '/workspace'
     | '/settings/organization'
   id:
     | '__root__'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/_authenticated/divisions'
     | '/_authenticated/members'
     | '/_authenticated/profile'
+    | '/_authenticated/workspace'
     | '/_authenticated/settings/organization'
   fileRoutesById: FileRoutesById
 }
@@ -236,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/workspace': {
+      id: '/_authenticated/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof AuthenticatedWorkspaceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/settings/organization': {
       id: '/_authenticated/settings/organization'
       path: '/settings/organization'
@@ -253,6 +272,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDivisionsRoute: typeof AuthenticatedDivisionsRoute
   AuthenticatedMembersRoute: typeof AuthenticatedMembersRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedWorkspaceRoute: typeof AuthenticatedWorkspaceRoute
   AuthenticatedSettingsOrganizationRoute: typeof AuthenticatedSettingsOrganizationRoute
 }
 
@@ -263,6 +283,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDivisionsRoute: AuthenticatedDivisionsRoute,
   AuthenticatedMembersRoute: AuthenticatedMembersRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedWorkspaceRoute: AuthenticatedWorkspaceRoute,
   AuthenticatedSettingsOrganizationRoute:
     AuthenticatedSettingsOrganizationRoute,
 }
