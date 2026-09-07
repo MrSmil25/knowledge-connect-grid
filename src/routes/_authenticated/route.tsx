@@ -11,6 +11,8 @@ import {
   X,
   Megaphone,
   Settings,
+  BriefcaseBusiness,
+  TrendingUp,
 } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
