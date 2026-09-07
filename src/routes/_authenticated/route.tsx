@@ -19,6 +19,7 @@ import {
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { isBPH, useMyProfile } from "@/hooks/useProfile";
+import { canApproveFunds } from "@/lib/fund-requests";
 import { fetchOrgSettings, resolveLogoUrl } from "@/lib/announcements";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
@@ -78,6 +79,7 @@ function AppLayout() {
     enabled: !!org?.logo_url,
   });
   const canManageOrg = isBPH(profile?.role);
+  const canApprove = canApproveFunds(profile?.role);
 
   async function handleLogout() {
     await queryClient.cancelQueries();
@@ -137,6 +139,26 @@ function AppLayout() {
               ))}
             </div>
           ))}
+
+          {canApprove && (
+            <div className="space-y-1">
+              <p className="px-3 pb-1 text-[11px] font-semibold tracking-wider text-sidebar-foreground/50">
+                KONTROL KEUANGAN
+              </p>
+              <Link
+                to="/fund-approvals"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                activeProps={{
+                  className:
+                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium bg-sidebar-accent text-sidebar-accent-foreground",
+                }}
+              >
+                <ShieldCheck className="size-4" />
+                Persetujuan Dana
+              </Link>
+            </div>
+          )}
 
           {canManageOrg && (
             <div className="space-y-1 border-t border-sidebar-border pt-3">
