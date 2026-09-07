@@ -233,9 +233,10 @@ export function memberHealth(m: MemberProgress): HealthKey {
     n(m.kr_active);
   if (total === 0) return "kosong";
   const overdue = n(m.tasks_overdue);
-  const krAvg = n(m.kr_avg_progress);
-  if (overdue >= 3 || krAvg < 30) return "tertinggal";
-  if (overdue >= 1 || krAvg < 60) return "perhatian";
+  // Progress KR hanya dinilai bila anggota memang menanggung KR.
+  const krAvg = n(m.kr_active) > 0 ? n(m.kr_avg_progress) : null;
+  if (overdue >= 3 || (krAvg !== null && krAvg < 30)) return "tertinggal";
+  if (overdue >= 1 || (krAvg !== null && krAvg < 60)) return "perhatian";
   return "produktif";
 }
 
