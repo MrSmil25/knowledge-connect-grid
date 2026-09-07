@@ -37,8 +37,8 @@ export function MemberProgressCard({
   onToggle,
 }: {
   member: MemberProgress;
-  divisionName?: string | null;
-  divisionColor?: string | null;
+  divisionName?: string | null | undefined;
+  divisionColor?: string | null | undefined;
   expanded: boolean;
   onToggle: () => void;
 }) {
