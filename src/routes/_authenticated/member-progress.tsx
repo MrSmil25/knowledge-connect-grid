@@ -31,7 +31,7 @@ export const Route = createFileRoute("/_authenticated/member-progress")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: MemberProgressPage;
+  component: MemberProgressPage,
 });
 
 const ALL = "__all__";
