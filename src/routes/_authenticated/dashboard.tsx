@@ -57,6 +57,13 @@ function DashboardPage() {
         <p className="mt-2 text-sm text-primary-foreground/80">
           Selamat datang kembali di OrgTool. Berikut ringkasan organisasi hari ini.
         </p>
+        <Link
+          to="/workspace"
+          className="mt-5 inline-flex items-center gap-2 rounded-xl bg-card px-4 py-2.5 text-sm font-semibold text-primary shadow-sm transition-colors hover:bg-card/90"
+        >
+          <BriefcaseBusiness className="size-4" />
+          Buka Ruang Kerja Saya
+        </Link>
       </section>
 
       <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
