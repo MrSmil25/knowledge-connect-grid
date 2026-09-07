@@ -17,6 +17,7 @@ import { Route as AuthenticatedAnnouncementsRouteImport } from './routes/_authen
 import { Route as AuthenticatedCommandCenterRouteImport } from './routes/_authenticated/command-center'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDivisionsRouteImport } from './routes/_authenticated/divisions'
+import { Route as AuthenticatedMemberProgressRouteImport } from './routes/_authenticated/member-progress'
 import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedWorkspaceRouteImport } from './routes/_authenticated/workspace'
@@ -63,6 +64,12 @@ const AuthenticatedDivisionsRoute = AuthenticatedDivisionsRouteImport.update({
   path: '/divisions',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMemberProgressRoute =
+  AuthenticatedMemberProgressRouteImport.update({
+    id: '/member-progress',
+    path: '/member-progress',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMembersRoute = AuthenticatedMembersRouteImport.update({
   id: '/members',
   path: '/members',
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/command-center': typeof AuthenticatedCommandCenterRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/divisions': typeof AuthenticatedDivisionsRoute
+  '/member-progress': typeof AuthenticatedMemberProgressRoute
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/workspace': typeof AuthenticatedWorkspaceRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
   '/command-center': typeof AuthenticatedCommandCenterRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/divisions': typeof AuthenticatedDivisionsRoute
+  '/member-progress': typeof AuthenticatedMemberProgressRoute
   '/members': typeof AuthenticatedMembersRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/workspace': typeof AuthenticatedWorkspaceRoute
@@ -121,6 +130,7 @@ export interface FileRoutesById {
   '/_authenticated/command-center': typeof AuthenticatedCommandCenterRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/divisions': typeof AuthenticatedDivisionsRoute
+  '/_authenticated/member-progress': typeof AuthenticatedMemberProgressRoute
   '/_authenticated/members': typeof AuthenticatedMembersRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/workspace': typeof AuthenticatedWorkspaceRoute
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/command-center'
     | '/dashboard'
     | '/divisions'
+    | '/member-progress'
     | '/members'
     | '/profile'
     | '/workspace'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/command-center'
     | '/dashboard'
     | '/divisions'
+    | '/member-progress'
     | '/members'
     | '/profile'
     | '/workspace'
@@ -163,6 +175,7 @@ export interface FileRouteTypes {
     | '/_authenticated/command-center'
     | '/_authenticated/dashboard'
     | '/_authenticated/divisions'
+    | '/_authenticated/member-progress'
     | '/_authenticated/members'
     | '/_authenticated/profile'
     | '/_authenticated/workspace'
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDivisionsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/member-progress': {
+      id: '/_authenticated/member-progress'
+      path: '/member-progress'
+      fullPath: '/member-progress'
+      preLoaderRoute: typeof AuthenticatedMemberProgressRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/members': {
       id: '/_authenticated/members'
       path: '/members'
@@ -270,6 +290,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommandCenterRoute: typeof AuthenticatedCommandCenterRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDivisionsRoute: typeof AuthenticatedDivisionsRoute
+  AuthenticatedMemberProgressRoute: typeof AuthenticatedMemberProgressRoute
   AuthenticatedMembersRoute: typeof AuthenticatedMembersRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedWorkspaceRoute: typeof AuthenticatedWorkspaceRoute
@@ -281,6 +302,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommandCenterRoute: AuthenticatedCommandCenterRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDivisionsRoute: AuthenticatedDivisionsRoute,
+  AuthenticatedMemberProgressRoute: AuthenticatedMemberProgressRoute,
   AuthenticatedMembersRoute: AuthenticatedMembersRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedWorkspaceRoute: AuthenticatedWorkspaceRoute,
